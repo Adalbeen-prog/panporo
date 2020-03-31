@@ -82,8 +82,8 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-# production:
-#   <<: *default
-#   database: panporo_production
-#   username: panporo
-#   password: <%= ENV['PANPORO_DATABASE_PASSWORD'] %>
+production:
+  <<: *default
+  database: panporo_production
+  username: panporo
+  password: <%= ENV['PANPORO_DATABASE_PASSWORD'] %>
