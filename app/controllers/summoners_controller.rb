@@ -1,7 +1,7 @@
 class SummonersController < ApplicationController
 
   def show
-    @api = 'RGAPI-466ae6b3-1134-4f95-ac6e-7f904c858e75'
+    @api = ENV['RIOT_API'] ? ENV['RIOT_API'] : 'RGAPI-466ae6b3-1134-4f95-ac6e-7f904c858e75'
     @region = 'eun1'
     @summonerinfo, @profile = get_profile('eun1', params[:summoner])
     @matches = get_match_history('eun1', @summonerinfo['accountId'])
