@@ -1,17 +1,14 @@
-@import "semantic-ui";
-@import "semantic-ui/collections/menu";
+@import "bootstrap";
 
 .main {
   margin-top: 1%;
 }
 
-.center-this {
-  margin: auto;
-  text-align: center;
+.small {
+  width: 50%;
 }
 .match-item {
   border: 1px solid rgba(0,0,0,0.3) !important;
-  padding: 10px !important;
 }
 
 .profileIconMatch {
@@ -21,10 +18,28 @@
 }
 .championIcon{
   float:left;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.center {
+  margin: auto;
+}
+
+.trinket{
+  float: right;
+  width: 30px;
+  margin-top: 4px;
 }
 
 .summonerIcons {
-  padding-left: 20px;
+  width: 20px;
+  display: inline;
+}
+
+.team-table p {
+  margin-bottom: 0;
+  font-size: 12px;
 }
 
 .championName{
@@ -32,11 +47,11 @@
 }
 
 .victory {
-  background: #6bd682 !important;
+  background: #A3CFEC !important;
 }
 
 .defeat {
-  background: #c2131c !important;
+  background: #E2B6B3 !important;
 }
 
 .red {
@@ -45,11 +60,12 @@
 
 .score {
   font-weight: 500;
-  font-size: 30px;
+  font-size: 18px;
 }
 
 .kdaNumber {
   font-weight: 800;
+  font-size: 15px;
   color: rgba(20,20,50,0.5);
 }
 

@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
+  
   helper_method :get_match_info
 
   def parse_http_json(url)

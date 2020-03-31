@@ -1,12 +1,12 @@
-<div class="ui card">
-  <div class="center-this content">
+<div class="card">
+  <div class="card-body text-center p-0">
     <div class="header"><%= @summonerinfo['name'] %></div>
-    <%= image_tag("/10.6.1/img/profileicon/#{@summonerinfo['profileIconId']}.png", class: "ui small image") %>
+    <%= image_tag("/10.6.1/img/profileicon/#{@summonerinfo['profileIconId']}.png", class: "img-fluid rounded img-thumbnail small") %>
     <p>Level <%= @summonerinfo['summonerLevel'] %></p>
     <hr>
     <div class="header">Solo</div>
     <div class="meta">
-      <%= image_tag("/images/ranked-emblems/Emblem_#{profile['tier'].to_s.capitalize}.png", class: "ui small image") %>
+      <%= image_tag("/images/ranked-emblems/Emblem_#{profile['tier'].to_s.capitalize}.png", class: "img-fluid small") %>
     </div>
     <p><span><%= profile['tier'] %> <%= profile['rank'] %></span></p>
     <p>Body: <%= profile['leaguePoints'] %> bodů</p>
