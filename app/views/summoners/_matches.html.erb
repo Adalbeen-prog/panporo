@@ -1,29 +1,38 @@
-<% matches['matches'].each do |match| %>
+<div class="ui items">
+<% matches['matches'].each_with_index do |match, index| %>
  <% queue_type = @queue.select{|x| x['queueId'] == match['queue'] }.first %>
  <% match_details = get_match_info(@region, match['gameId']) %>
  <% owner = define_owner_of_game(profile['summonerName'], match_details) %>
-  <div class="ui items">
-    <div class="item match-item">
+    <div class="item match-item <%= owner['stats']['win'] ? 'victory' : 'defeat' %>">
       <div class="content">
         <a class="header"><%= queue_type['map'] %> - <%= queue_type['description'] %></a>
         <div class="meta">
           <span><%= match['role'] %> - <%= match['lane'] %></span>
         </div>
         <div class="description">
-          <div class="ui grid">
+          <div class="ui aligned padded grid">
             <div class="row">
-              <div class="three wide column">
+              <div class="one wide column center-this">
+                <%= owner['stats']['win'] ? 'Victory' : 'Defeat'%>
                 <p><%= Time.at(match_details['gameDuration']).utc.strftime("%Mm%Ss") %></p>
               </div>
-              <div class="four wide column">
+              <div class="three wide column">
                 <% champion = get_name_from_id(@champion_json, owner['championId']) %>
-                <%= image_tag("/10.6.1/img/champion/#{champion['image']['full']}", class: "ui tiny circular image") %> 
-                <%= get_name_from_id(@summoner_json, owner['spell1Id'])['image']['full'] %>
-                <%= get_name_from_id(@summoner_json, owner['spell2Id'])['image']['full'] %>
+                <div class="championIcon center">
+                  <%= image_tag("/10.6.1/img/champion/#{champion['image']['full']}", class: "ui tiny circular image") %> 
+                </div>
+                <div class="summonerIcons">
+                  <%= get_image_from_summoner_spell_id(@summoner_json, owner['spell1Id']) %>
+                  <%= get_image_from_summoner_spell_id(@summoner_json, owner['spell2Id']) %>
+                </div>
+                <br>
+                <p class="center-this"><%= champion['id'] %></p>
               </div>
-              <div class="four wide column">
-
+              <div class="three wide column">
+                <p class="score center-this"><%= owner['stats']['kills'] %> / <span class="red"><%= owner['stats']['deaths'] %></span> / <%= owner['stats']['assists'] %></p>
+                <p class="kdaNumber center-this"><%= ((owner['stats']['kills'].to_f + owner['stats']['assists']) / owner['stats']['deaths'].to_f).round(2) %>:1 <span class="kdaText">KDA</span> </p>
               </div>
+              <div class="three wide column"></div>
               <div class="five wide column">
                 <div class="ui grid">
                   <div class="row">
@@ -48,5 +57,5 @@
       </div>
     </div>
   </div>
-  <% break %>
+  <% break if index == 1 %>
 <% end %>

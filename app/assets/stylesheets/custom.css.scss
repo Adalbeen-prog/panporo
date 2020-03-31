@@ -5,7 +5,8 @@
   margin-top: 1%;
 }
 
-.profile {
+.center-this {
+  margin: auto;
   text-align: center;
 }
 .match-item {
@@ -18,7 +19,41 @@
   float: left;
   margin-right: 2px;
 }
+.championIcon{
+  float:left;
+}
 
-.matchChampion{
-  width: 100px;
+.summonerIcons {
+  padding-left: 20px;
+}
+
+.championName{
+  text-align: center;
+}
+
+.victory {
+  background: #6bd682 !important;
+}
+
+.defeat {
+  background: #c2131c !important;
+}
+
+.red {
+  color: red;
+}
+
+.score {
+  font-weight: 500;
+  font-size: 30px;
+}
+
+.kdaNumber {
+  font-weight: 800;
+  color: rgba(20,20,50,0.5);
+}
+
+.kdaText {
+  font-weight: 400;
+  color: rgba(20,20,50,0.8);
 }
