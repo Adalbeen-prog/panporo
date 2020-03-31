@@ -1,0 +1,17 @@
+<div class="ui card">
+  <div class="profile content">
+    <div class="header"><%= @summonerinfo['name'] %></div>
+    <%= image_tag("/10.6.1/img/profileicon/#{@summonerinfo['profileIconId']}.png", class: "ui small image") %>
+    <p>Level <%= @summonerinfo['summonerLevel'] %></p>
+    <hr>
+    <div class="header">Solo</div>
+    <div class="meta">
+      <%= image_tag("/images/ranked-emblems/Emblem_#{profile['tier'].to_s.capitalize}.png", class: "ui small image") %>
+    </div>
+    <p><span><%= profile['tier'] %> <%= profile['rank'] %></span></p>
+    <p>Body: <%= profile['leaguePoints'] %> bodů</p>
+    <p>Výhry: <%= profile['wins'] %></p>
+    <p>Prohry: <%= profile['losses'] %></p>
+    <%= 'hotstreak' if profile['hotStreak'] %>
+  </div>
+</div>

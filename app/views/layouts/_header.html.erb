@@ -1,0 +1,21 @@
+<div class="ui large attached menu">
+  <div class="ui container">
+    <%= link_to 'Vyhledat', root_path, class: "item" %>
+  </div>
+</div>
+
+<div class="ui container">
+  <% if notice  %>
+    <div class="ui success message mt-5">
+      <a href="#" class="close icon" data-dismiss="notice">&#215</a>
+      <p><%= notice %></p>
+    </div>
+  <% end %>
+
+  <% if alert %>
+    <div class="ui negative message mt-5">
+      <a href="#" class="close icon" data-dismiss="alert">&#215</a>
+      <p><%= alert %></p>
+    </div>
+  <% end %>
+</div>

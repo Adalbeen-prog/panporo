@@ -1,0 +1,24 @@
+@import "semantic-ui";
+@import "semantic-ui/collections/menu";
+
+.main {
+  margin-top: 1%;
+}
+
+.profile {
+  text-align: center;
+}
+.match-item {
+  border: 1px solid rgba(0,0,0,0.3) !important;
+  padding: 10px !important;
+}
+
+.profileIconMatch {
+  width: 20px;
+  float: left;
+  margin-right: 2px;
+}
+
+.matchChampion{
+  width: 100px;
+}

@@ -1,0 +1,52 @@
+<% matches['matches'].each do |match| %>
+ <% queue_type = @queue.select{|x| x['queueId'] == match['queue'] }.first %>
+ <% match_details = get_match_info(@region, match['gameId']) %>
+ <% owner = define_owner_of_game(profile['summonerName'], match_details) %>
+  <div class="ui items">
+    <div class="item match-item">
+      <div class="content">
+        <a class="header"><%= queue_type['map'] %> - <%= queue_type['description'] %></a>
+        <div class="meta">
+          <span><%= match['role'] %> - <%= match['lane'] %></span>
+        </div>
+        <div class="description">
+          <div class="ui grid">
+            <div class="row">
+              <div class="three wide column">
+                <p><%= Time.at(match_details['gameDuration']).utc.strftime("%Mm%Ss") %></p>
+              </div>
+              <div class="four wide column">
+                <% champion = get_name_from_id(@champion_json, owner['championId']) %>
+                <%= image_tag("/10.6.1/img/champion/#{champion['image']['full']}", class: "ui tiny circular image") %> 
+                <%= get_name_from_id(@summoner_json, owner['spell1Id'])['image']['full'] %>
+                <%= get_name_from_id(@summoner_json, owner['spell2Id'])['image']['full'] %>
+              </div>
+              <div class="four wide column">
+
+              </div>
+              <div class="five wide column">
+                <div class="ui grid">
+                  <div class="row">
+                      <% match_details['participantIdentities'].each_slice(5).to_a.each do |team| %>
+                      <div class="eight wide column">
+                        <% team.each do |players| %>
+                          <% player_details = match_details['participants'][players['participantId']-1] %> 
+                          <% champion = get_name_from_id(@champion_json, player_details['championId']) %>
+                          <p> <%= image_tag("/10.6.1/img/champion/#{champion['image']['full']}", class: "profileIconMatch") %> 
+                              <%= players['player']['summonerName'].truncate(10) %>
+                          </p>
+                        <% end %>
+                      </div> 
+                      <% end %>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% break %>
+<% end %>

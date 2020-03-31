@@ -1,0 +1,10 @@
+<% if !@profile %>
+  Summoner nenalezen
+<% else %>
+  <div class="ui grid">
+    <div class="row">
+      <div class="four wide column"><%= render 'profilecard', profile: @profile, summonerinfo: @summonerinfo %></div>
+      <div class="twelve wide column"><%= render 'matches', matches: @matches, queue: @queue, profile: @profile %></div>
+    </div>
+  </div>
+<% end %>
