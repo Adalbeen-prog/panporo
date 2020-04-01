@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body text-center p-0">
     <div class="header"><%= @summonerinfo['name'] %></div>
-    <%= image_tag("/10.6.1/img/profileicon/#{@summonerinfo['profileIconId']}.png", class: "img-fluid rounded img-thumbnail small") %>
+    <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/profileicon/#{@summonerinfo['profileIconId']}.png", class: "img-fluid rounded img-thumbnail small") %>
     <p>Level <%= @summonerinfo['summonerLevel'] %></p>
     <hr>
     <div class="header">Solo</div>

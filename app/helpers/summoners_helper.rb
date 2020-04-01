@@ -10,7 +10,7 @@ module SummonersHelper
 
   def get_image_from_summoner_spell_id(json, id)
     spell_name = get_name_from_id(json, id)['image']['full']
-    return image_tag("/10.6.1/img/spell/#{spell_name}", class: 'summonerIcons')
+    return image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/spell/#{spell_name}", class: 'summonerIcons')
   end
 
   def get_items(player)
@@ -21,8 +21,5 @@ module SummonersHelper
     team1 = teams.select{ |x| x['teamId'] == 100 }
     team2 = teams.select{ |x| x['teamId'] == 200 }
     return team1, team2
-  end
-
-  def find_identity(id)
   end
 end

@@ -14,7 +14,7 @@
               <div class="col-2 text-center center">
                 <% champion = get_name_from_id(@champion_json, owner['championId']) %>
                 <div class="text-center">
-                  <%= image_tag("/10.6.1/img/champion/#{champion['image']['full']}", class: "championIcon img-fluid") %> 
+                  <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/champion/#{champion['image']['full']}", class: "championIcon img-fluid") %> 
                 </div>
                 <div class="summonerIcons">
                   <%= get_image_from_summoner_spell_id(@summoner_json, owner['spell1Id']) %>
@@ -29,9 +29,14 @@
                 <p> Vision score: <%= owner['stats']['visionScore'] %></p>  
               </div>
               <div class="col-2">
-                <%= image_tag("/10.6.1/img/item/#{owner['stats']['item6']}.png", class: 'trinket') %>
+                <% image = owner['stats']['item6'] == 0 ? "/images/0.png" : "http://ddragon.leagueoflegends.com/cdn/#{@version}/img/item/#{owner['stats']['item6']}.png" %>
+                <%= image_tag(image, class: 'trinket') %>
                 <% get_items(owner).each do |item| %>
-                  <%= image_tag("/10.6.1/img/item/#{item[1]}.png", class: 'summonerIcons') %>
+                  <% if item[1] == 0 %>
+                    <%= image_tag("/images/0.png", class: 'summonerIcons') %>
+                  <% else %>
+                    <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/item/#{item[1]}.png", class: 'summonerIcons') %>
+                  <% end %>
                 <% end %>
               </div>
               <div class="col-4">
@@ -42,7 +47,7 @@
                         <% team.each do |players| %>
                           <% player_details = match_details['participants'][players['participantId']-1] %> 
                           <% champion = get_name_from_id(@champion_json, player_details['championId']) %>
-                          <div class="player"> <%= image_tag("/10.6.1/img/champion/#{champion['image']['full']}", class: "profileIconMatch") %> 
+                          <div class="player"> <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/champion/#{champion['image']['full']}", class: "profileIconMatch") %> 
                               <span class="playerName"><%= players['player']['summonerName'].truncate(10) %></span>
                           </div>
                         <% end %>

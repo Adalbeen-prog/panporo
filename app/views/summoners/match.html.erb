@@ -22,7 +22,8 @@
           <p class="m-0"> VS: <%= player['stats']['visionScore'] %></p>  
         </div>
         <div class="col-1">
-          <%= player['stats']['totalDamageDealtToChampions'] %>
+          <%= player['stats']['perkPrimaryStyle'] %>
+          <%= player['stats']['perkSubStyle'] %>
         </div>
         <div class="col-3">
             <% get_items(player).each do |item| %>
