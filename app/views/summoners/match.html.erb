@@ -9,7 +9,7 @@
         <% player_identity = match_details['participantIdentities'].find { |x| x['participantId'] == player['participantId'] } %> 
         <% champion = get_name_from_id(@champion_json, player['championId']) %>
         <div class="col-1 mb-2">
-          <span class="player"> <%= image_tag("/10.6.1/img/champion/#{champion['image']['full']}", class: "detailedMatchProfilePicture") %> </span>
+          <span class="player"> <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/champion/#{champion['image']['full']}", class: "detailedMatchProfilePicture") %> </span>
         </div>
         <div class="col-2 align-center">
           <span class="playerName mr-4"><%= player_identity['player']['summonerName'] %></span>
@@ -27,9 +27,9 @@
         </div>
         <div class="col-3">
             <% get_items(player).each do |item| %>
-                <%= image_tag("/10.6.1/img/item/#{item[1]}.png", class: 'itemIcons') %>
+                <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/item/#{item[1]}.png", class: 'itemIcons') %>
             <% end %>
-            <%= image_tag("/10.6.1/img/item/#{player['stats']['item6']}.png", class: 'ml-1 itemIcons') %>
+            <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/item/#{player['stats']['item6']}.png", class: 'ml-1 itemIcons') %>
         </div>
       </div>
       <hr>
