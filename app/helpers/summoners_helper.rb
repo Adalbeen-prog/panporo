@@ -16,4 +16,13 @@ module SummonersHelper
   def get_items(player)
     player['stats'].select { |key, value| key.to_s.match(/^item[0-5]+/) }
   end
+  
+  def team_different(teams)
+    team1 = teams.select{ |x| x['teamId'] == 100 }
+    team2 = teams.select{ |x| x['teamId'] == 200 }
+    return team1, team2
+  end
+
+  def find_identity(id)
+  end
 end

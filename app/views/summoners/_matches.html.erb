@@ -4,7 +4,7 @@
  <% owner = define_owner_of_game(profile['summonerName'], match_details) %>
     <div class="mb-2 card match-item <%= owner['stats']['win'] ? 'victory' : 'defeat' %>">
       <div class="card-body">
-        <a class="header"><%= queue_type['map'] %> - <%= queue_type['description'] %></a>
+        <%= link_to "#{queue_type['map']} - #{queue_type['description']}", "/match/#{match['gameId']}", match_details: match_details %>
         <div class="description">
             <div class="row">
               <div class="col-2 text-center center">

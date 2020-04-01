@@ -1,0 +1,38 @@
+<% match_details = get_match_info(@region, params['id']) %>
+<% team1, team2 = team_different(match_details['participants']) %>
+
+<div class="row">
+  <% [team1, team2].each do |team| %>
+  <div class="col-12 card p-3">
+    <% team.each do |player| %>
+      <div class="row d-flex align-items-center">
+        <% player_identity = match_details['participantIdentities'].find { |x| x['participantId'] == player['participantId'] } %> 
+        <% champion = get_name_from_id(@champion_json, player['championId']) %>
+        <div class="col-1 mb-2">
+          <span class="player"> <%= image_tag("/10.6.1/img/champion/#{champion['image']['full']}", class: "detailedMatchProfilePicture") %> </span>
+        </div>
+        <div class="col-2 align-center">
+          <span class="playerName mr-4"><%= player_identity['player']['summonerName'] %></span>
+        </div>
+        <div class="col-2 text-center">
+          <p class="KDAdetails mb-0"><%= player['stats']['kills'] %> / <span class="red"><%= player['stats']['deaths'] %></span> / <%= player['stats']['assists'] %> </p>
+          <p class="KDAdetailsdiff mb-0"><%= ((player['stats']['kills'].to_f + player['stats']['assists']) / player['stats']['deaths'].to_f).round(2) %>:1 <span class="kdaText">KDA</span></p>
+        </div>
+        <div class="col-1">
+          <p class="m-0"> VS: <%= player['stats']['visionScore'] %></p>  
+        </div>
+        <div class="col-1">
+          <%= player['stats']['totalDamageDealtToChampions'] %>
+        </div>
+        <div class="col-3">
+            <% get_items(player).each do |item| %>
+                <%= image_tag("/10.6.1/img/item/#{item[1]}.png", class: 'itemIcons') %>
+            <% end %>
+            <%= image_tag("/10.6.1/img/item/#{player['stats']['item6']}.png", class: 'ml-1 itemIcons') %>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+  </div> 
+  <% end %>
+</div>
