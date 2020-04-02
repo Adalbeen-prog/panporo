@@ -3,9 +3,9 @@
 
 <% [team1, team2].each_with_index do |team, indx| %>
 <div class="row">
-  <div class="col-12 card p-3">
-    <% team.each do |player| %>
-    <div class="row d-flex align-items-center mb-1">
+  <div class="col-12 card p-3 <%= indx == 0 ? 'blueteam' : 'redteam' %>">
+    <% team.each_with_index do |player, index| %>
+    <div class="row d-flex align-items-center mb-1 <%= 'blueteam-darker' if (indx == 0 && index % 2 == 0)%> <%= 'redteam-darker' if (indx == 1 && index % 2 == 0) %>">
       <% player_identity = match_details['participantIdentities'].find { |x| x['participantId'] == player['participantId'] } %>
       <% champion = get_name_from_id(@champion_json, player['championId']) %>
       <div class="col-1 text-center pr-0">
