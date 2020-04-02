@@ -1,39 +1,67 @@
 <% match_details = get_match_info(@region, params['id']) %>
 <% team1, team2 = team_different(match_details['participants']) %>
 
+<% [team1, team2].each_with_index do |team, indx| %>
 <div class="row">
-  <% [team1, team2].each do |team| %>
   <div class="col-12 card p-3">
     <% team.each do |player| %>
-      <div class="row d-flex align-items-center">
-        <% player_identity = match_details['participantIdentities'].find { |x| x['participantId'] == player['participantId'] } %> 
-        <% champion = get_name_from_id(@champion_json, player['championId']) %>
-        <div class="col-1 mb-2">
-          <span class="player"> <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/champion/#{champion['image']['full']}", class: "detailedMatchProfilePicture") %> </span>
+    <div class="row d-flex align-items-center mb-1">
+      <% player_identity = match_details['participantIdentities'].find { |x| x['participantId'] == player['participantId'] } %>
+      <% champion = get_name_from_id(@champion_json, player['championId']) %>
+      <div class="col-1 text-center pr-0">
+
+        <span class="player">
+          <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/champion/#{champion['image']['full']}", class: "detailedMatchProfilePicture") %>
+        </span>
+
+        <div class="summonersSpells">
+          <%= get_image_from_summoner_spell_id(@summoner_json, player['spell1Id']) %>
+          <%= get_image_from_summoner_spell_id(@summoner_json, player['spell2Id']) %>
         </div>
-        <div class="col-2 align-center">
-          <span class="playerName mr-4"><%= player_identity['player']['summonerName'] %></span>
-        </div>
-        <div class="col-2 text-center">
-          <p class="KDAdetails mb-0"><%= player['stats']['kills'] %> / <span class="red"><%= player['stats']['deaths'] %></span> / <%= player['stats']['assists'] %> </p>
-          <p class="KDAdetailsdiff mb-0"><%= ((player['stats']['kills'].to_f + player['stats']['assists']) / player['stats']['deaths'].to_f).round(2) %>:1 <span class="kdaText">KDA</span></p>
-        </div>
-        <div class="col-1">
-          <p class="m-0"> VS: <%= player['stats']['visionScore'] %></p>  
-        </div>
-        <div class="col-1">
-          <%= player['stats']['perkPrimaryStyle'] %>
-          <%= player['stats']['perkSubStyle'] %>
-        </div>
-        <div class="col-3">
-            <% get_items(player).each do |item| %>
-                <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/item/#{item[1]}.png", class: 'itemIcons') %>
-            <% end %>
-            <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/item/#{player['stats']['item6']}.png", class: 'ml-1 itemIcons') %>
-        </div>
+
+
       </div>
-      <hr>
+      <div class="col-1 text-center pl-0">
+        <!-- runes -->
+        <%  main_runes = find_main_runes_by_id(player['stats']['perkPrimaryStyle']) %>
+        <%  secondary_runes = find_main_runes_by_id(player['stats']['perkSubStyle']) %>
+        <%= image_tag("http://ddragon.leagueoflegends.com/cdn/img/#{main_runes['icon']}", class: 'primaryRune') %>
+        <%= image_tag("http://ddragon.leagueoflegends.com/cdn/img/#{secondary_runes['icon']}", class: 'secondaryRune') %>
+      </div>
+      <div class="col-2 align-center p-0">
+        <span class="playerName mr-4"><%= player_identity['player']['summonerName'] %></span>
+      </div>
+      <div class="col-2 text-center pl-0">
+        <!-- Score x/x/x -->
+        <p class="KDAdetails mb-0"><%= player['stats']['kills'] %> / <span
+            class="red"><%= player['stats']['deaths'] %></span> / <%= player['stats']['assists'] %> </p>
+        <p class="KDAdetailsdiff mb-0">
+          <%= ((player['stats']['kills'].to_f + player['stats']['assists']) / player['stats']['deaths'].to_f).round(2) %>:1
+          <span class="kdaText">KDA</span></p>
+      </div>
+      <div class="col-1 pl-0">
+        <!-- Vision score -->
+        <p class="m-0"> VS: <%= player['stats']['visionScore'] %></p>
+      </div>
+      <div class="col-1 pl-0">
+
+      </div>
+      <div class="col-3 pl-0">
+        <!-- render item images -->
+        <% get_items(player).each do |item| %>
+        <% if item[1] == 0 %>
+        <%= image_tag("/images/0.png", class: 'itemIcons') %>
+        <% else %>
+        <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/item/#{item[1]}.png", class: 'itemIcons') %>
+        <% end %>
+        <% end %>
+        <!-- render trinket image -->
+        <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/item/#{player['stats']['item6']}.png", class: 'ml-1 itemIcons') %>
+      </div>
+    </div>
     <% end %>
-  </div> 
-  <% end %>
+  </div>
 </div>
+<%= render 'teamstats', match: match_details if indx == 0 %>
+<% end %>
+<%= render 'matchanalysis', match: match_details, team1: team1, team2: team2 %>

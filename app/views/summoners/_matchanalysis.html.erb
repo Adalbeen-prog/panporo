@@ -1,0 +1,60 @@
+<% add_minions_and_monsters(team1, team2) %>
+<% max_stats, all_team = count_stats(team1, team2) %>
+
+<% [{'Zabití championů' => 'kills'},{'Vydělané goldy' => 'goldEarned'},{'Damage do championů' => 'totalDamageDealtToChampions'}, {'Položené wardy' => 'wardsPlaced'}, {'Damage obdržen' => 'totalDamageTaken'},{'Minionů zabito' => 'totalMinionsTotal'}].each do |hash| %>
+<div class="col-6 mb-2 mt-2">
+  <div class="card p-2">
+    <div class="row d-flex align-items-center mb-1">
+      <div class="stats-header text-center"><%= hash.keys.first %></div>
+      <div class="main-bar pl-5 pr-5 mb-2">
+        <div class="progress">
+          <% ratio = team_ratio(all_team, hash.values.first) %>
+          <div class="progress-bar bg-primary" role="progressbar" style="width: <%= ratio[0] %>%"
+            aria-valuenow="<%= ratio[0] %>" aria-valuemin="0" aria-valuemax="100"><%= ratio[0] %>%</div>
+          <div class="progress-bar bg-danger" role="progressbar" style="width: <%= ratio[1] %>%"
+            aria-valuenow="<%= ratio[1] %>" aria-valuemin="0" aria-valuemax="100"><%= ratio[1] %>%</div>
+        </div>
+      </div>
+      <div class="col-6">
+        <ul class="list-unstyled">
+          <% team1.each do |player| %>
+          <% player['stats'][hash.values.first] %>
+          <li>
+            <div class="">
+              <% champion = get_name_from_id(@champion_json, player['championId']) %>
+              <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/champion/#{champion['image']['full']}", class: "small-img") %>
+              <div class="progress d-inline">
+                <div class="progress-bar" role="progressbar"
+                  style="width: <%= make_percentage_from_max(player['stats'][hash.values.first], max_stats['0'][hash.values.first]) %>%"
+                  aria-valuenow="<%= make_percentage_from_max(player['stats'][hash.values.first], max_stats['0'][hash.values.first]) %>"
+                  aria-valuemin="0" aria-valuemax="100"><%= player['stats'][hash.values.first] %></div>
+              </div>
+
+            </div>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="col-6">
+        <ul class="list-unstyled">
+          <% team2.each do |player| %>
+          <% player['stats'][hash.values.first] %>
+          <li>
+            <div class="">
+              <% champion = get_name_from_id(@champion_json, player['championId']) %>
+              <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/champion/#{champion['image']['full']}", class: "small-img") %>
+              <div class="progress d-inline">
+                <div class="progress-bar bg-danger" role="progressbar"
+                  style="width: <%= make_percentage_from_max(player['stats'][hash.values.first], max_stats['1'][hash.values.first]) %>%"
+                  aria-valuenow="<%= make_percentage_from_max(player['stats'][hash.values.first], max_stats['1'][hash.values.first]) %>"
+                  aria-valuemin="0" aria-valuemax="100"><%= player['stats'][hash.values.first] %></div>
+              </div>
+            </div>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

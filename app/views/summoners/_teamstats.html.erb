@@ -1,0 +1,22 @@
+<div class="teamstats mt-2 mb-2">
+  <div class="row d-flex align-items-center mb-1">
+    <div class="col-1 text-center"><%= image_tag("/images/icons/icon-baron-b.png", class: 'a') %> <%= match['teams'][0]['baronKills'] %></div>
+    <div class="col-1 text-center"><%= image_tag("/images/icons/icon-dragon-b.png", class: 'a') %> <%= match['teams'][0]['dragonKills'] %></div>
+    <div class="col-1 text-center"><%= image_tag("/images/icons/icon-tower-b.png", class: 'a') %> <%= match['teams'][0]['towerKills'] %></div>
+    <div class="col-3">
+      <% match['teams'][0]['bans'].each do |ban| %>
+        <% champion = get_name_from_id(@champion_json, ban['championId']) %>
+        <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/champion/#{champion['image']['full']}", class: "bbans") %>
+      <% end %>
+    </div>
+    <div class="col-3">
+      <% match['teams'][1]['bans'].each do |ban| %>
+        <% champion = get_name_from_id(@champion_json, ban['championId']) %>
+        <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/champion/#{champion['image']['full']}", class: "rbans") %>
+      <% end %>
+    </div>
+    <div class="col-1 text-center"><%= image_tag("/images/icons/icon-baron-r.png", class: 'a') %> <%= match['teams'][1]['baronKills'] %></div>
+    <div class="col-1 text-center"><%= image_tag("/images/icons/icon-dragon-r.png", class: 'a') %> <%= match['teams'][1]['dragonKills'] %></div>
+    <div class="col-1 text-center"><%= image_tag("/images/icons/icon-tower-r.png", class: 'a') %> <%= match['teams'][1]['towerKills'] %></div>
+  </div>
+</div>
