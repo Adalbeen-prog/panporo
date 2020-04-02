@@ -1,7 +1,7 @@
 <% matches.each_with_index do |match, index| %>
  <% queue_type = @queue.select{|x| x['queueId'] == match['queue'] }.first %>
  <% match_details = get_match_info(@region, match['gameId']) %>
- <% owner = define_owner_of_game(profile['summonerName'], match_details) %>
+ <% owner = define_owner_of_game(profile[0]['summonerName'], match_details) %>
     <div class="mb-2 card match-item <%= owner['stats']['win'] ? 'victory' : 'defeat' %>">
       <div class="card-body">
         <%= link_to "#{queue_type['map']} - #{queue_type['description']}", "/match/#{match['gameId']}", match_details: match_details %>
@@ -48,7 +48,7 @@
                           <% player_details = match_details['participants'][players['participantId']-1] %> 
                           <% champion = get_name_from_id(@champion_json, player_details['championId']) %>
                           <div class="player"> <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/champion/#{champion['image']['full']}", class: "profileIconMatch") %> 
-                              <span class="playerName"><%= players['player']['summonerName'].truncate(10) %></span>
+                              <span class=""><%= players['player']['summonerName'].truncate(10) %></span>
                           </div>
                         <% end %>
                       </div> 

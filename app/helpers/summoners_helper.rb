@@ -68,4 +68,20 @@ module SummonersHelper
     team2 = (all_team['1'][stat].to_f / counted.to_f * 100).round(2)
     return [team1, team2]
   end
+
+
+  def ranked_stats(summoner_details)
+    stats = {}
+    summoner_details.each do |league|
+      stats.merge!({league['queueType'] => league})
+    end
+    stats
+  end
+
+  def winratio(win, loss)
+    counted = win + loss
+    percentage = (win.to_f / counted.to_f * 100 ).floor
+    return counted, percentage
+  end
+
 end

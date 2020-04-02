@@ -1,0 +1,68 @@
+<% match_details = get_live_match_info(@region, @profile[0]['summonerId']) %>
+
+<% debugger %>
+<% if !match_details['status'] %>
+
+<% team1, team2 = team_different(match_details['participants']) %>
+
+<div class="text-center mb-1">
+  Bans:
+  <% match_details['bannedChampions'].each do |ban| %>
+  <% champion = get_name_from_id(@champion_json, ban['championId']) %>
+  <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/champion/#{champion['image']['full']}", class: "bbans") %>
+  <% end %>
+</div>
+
+<% [team1, team2].each_with_index do |team, indx| %>
+<div class="row d-flex justify-content-between">
+  <% team.each_with_index do |player, index| %>
+  <% summoner_info, summoner_details = get_profile(@region, player['summonerName']) %>
+  <% player_identity = match_details['participants'].find { |x| x['participantId'] == player['participantId'] } %>
+  <% ranked_stats = ranked_stats(summoner_details) %>
+  <% champion = get_name_from_id(@champion_json, player['championId']) %>
+  <div class="col-2 m-0 p-0">
+    <div class="card playerCard mb-2">
+      <div class="playerName text-center p-1">
+        <b><%= player['summonerName'] %></b>
+      </div>
+      <div class="p-2">
+        <div class="playerInfo p-0">
+          <div class="summonersSpells mb-1">
+            <div class="col-6 mt-1">
+              <%= image_tag("http://ddragon.leagueoflegends.com/cdn/#{@version}/img/champion/#{champion['image']['full']}", class: "detailedMatchProfilePicture") %>
+              <%  main_runes = find_main_runes_by_id(player['perks']['perkStyle']) %>
+              <%  secondary_runes = find_main_runes_by_id(player['perks']['perkSubStyle']) %>
+              <%= get_image_from_summoner_spell_id(@summoner_json, player['spell1Id']) %>
+              <%= get_image_from_summoner_spell_id(@summoner_json, player['spell2Id']) %>
+              <%= image_tag("http://ddragon.leagueoflegends.com/cdn/img/#{main_runes['icon']}", class: 'summonerIcons') %>
+              <%= image_tag("http://ddragon.leagueoflegends.com/cdn/img/#{secondary_runes['icon']}", class: 'summonerIcons') %>
+            </div>
+            <div class="col-6 pl-2">
+
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <% if ranked_stats.size >= 1 %>
+          <div class="col-4 p-0 pl-2">
+            <%= image_tag("/images/ranked-emblems/Emblem_#{ranked_stats['RANKED_SOLO_5x5']['tier'].to_s.capitalize}.png", class: "img-fluid float-left") %>
+          </div>
+          <div class="col-8 p-0 rankedText pr-1">
+            <% counted, percentage = winratio(ranked_stats['RANKED_SOLO_5x5']['wins'], ranked_stats['RANKED_SOLO_5x5']['losses']) %>
+            <span><%= ranked_stats['RANKED_SOLO_5x5']['tier'] %> <%= ranked_stats['RANKED_SOLO_5x5']['rank'] %> LP: <%= ranked_stats['RANKED_SOLO_5x5']['leaguePoints'] %></span><br>
+            <span><%= percentage %>% win (<%= counted %> her)</span>
+          </div>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+<% end %>
+
+<% else %>
+NEHRAJE
+<% end %>

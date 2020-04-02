@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
   
-  helper_method :get_match_info
+  helper_method :get_match_info, :get_live_match_info, :get_profile
 
   def parse_http_json(url)
     api_uri = URI.parse(URI.escape(url))
@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def get_profile(region, summoner) 
     summoner_info = parse_http_json("https://#{region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/#{summoner}?api_key=#{@api}")
-    profile = parse_http_json("https://#{region}.api.riotgames.com/lol/league/v4/entries/by-summoner/#{summoner_info['id']}?api_key=#{@api}")[0]
+    profile = parse_http_json("https://#{region}.api.riotgames.com/lol/league/v4/entries/by-summoner/#{summoner_info['id']}?api_key=#{@api}")
     return summoner_info, profile
   end
 
@@ -27,5 +27,7 @@ class ApplicationController < ActionController::Base
     parse_http_json("https://#{region}.api.riotgames.com/lol/match/v4/matches/#{match_id}?api_key=#{@api}")
   end
 
-
+  def get_live_match_info(region, summoner_id)
+    parse_http_json("https://#{region}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/#{summoner_id}?api_key=#{@api}")
+  end
 end

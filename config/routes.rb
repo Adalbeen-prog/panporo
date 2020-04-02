@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   root 'homepages#index'
 
   get 'search', to: 'summoners#show'
+  get 'live', to: 'summoners#live'
   get 'match/:id', to: 'summoners#match'
 end

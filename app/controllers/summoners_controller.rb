@@ -1,23 +1,27 @@
 class SummonersController < ApplicationController
+  before_action :set_dependencies, only: [:show, :match, :live]
 
   def show
-    @api = ENV['RIOT_API'] ? ENV['RIOT_API'] : 'RGAPI-9b91504a-d78d-45f3-96ee-0c7be2d0858c'
-    @region = 'eun1'
-    @version = '10.7.1'
-    @summonerinfo, @profile = get_profile('eun1', params[:summoner])
-    @matches = get_match_history('eun1', @summonerinfo['accountId'])
-    @pagy_matches, @matches = pagy_array(@matches['matches'], items: 5)
-    @queue = get_queue_types_json
-    @champion_json = parse_http_json("http://ddragon.leagueoflegends.com/cdn/#{@version}/data/cs_CZ/champion.json")['data']
-    @summoner_json = parse_http_json("http://ddragon.leagueoflegends.com/cdn/#{@version}/data/cs_CZ/summoner.json")['data']
+    @matches_json = get_match_history('eun1', @summonerinfo['accountId'])
+    @pagy_matches, @matches = pagy_array(@matches_json['matches'], items: 5)
   end
 
   def match
-    @api = ENV['RIOT_API'] ? ENV['RIOT_API'] : 'RGAPI-9b91504a-d78d-45f3-96ee-0c7be2d0858c'
+  end
+
+  def live
+  end
+
+  private
+
+  def set_dependencies
+    @api = ENV['RIOT_API'] ? ENV['RIOT_API'] : 'RGAPI-94ae091e-8fd2-4d34-aa78-76a313c0031f'
     @region = 'eun1'
     @version = '10.7.1'
+    @queue = get_queue_types_json
     @champion_json = parse_http_json("http://ddragon.leagueoflegends.com/cdn/#{@version}/data/cs_CZ/champion.json")['data']
     @summoner_json = parse_http_json("http://ddragon.leagueoflegends.com/cdn/#{@version}/data/cs_CZ/summoner.json")['data']
+    @summonerinfo, @profile = get_profile(@region, params[:summoner])
     @runes = parse_http_json("http://ddragon.leagueoflegends.com/cdn/#{@version}/data/cs_CZ/runesReforged.json")
   end
 end

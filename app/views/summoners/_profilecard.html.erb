@@ -6,12 +6,12 @@
     <hr>
     <div class="header">Solo</div>
     <div class="meta">
-      <%= image_tag("/images/ranked-emblems/Emblem_#{profile['tier'].to_s.capitalize}.png", class: "img-fluid small") %>
+      <%= image_tag("/images/ranked-emblems/Emblem_#{profile[0]['tier'].to_s.capitalize}.png", class: "img-fluid small") %>
     </div>
-    <p><span><%= profile['tier'] %> <%= profile['rank'] %></span></p>
-    <p>Body: <%= profile['leaguePoints'] %> bodů</p>
-    <p>Výhry: <%= profile['wins'] %></p>
-    <p>Prohry: <%= profile['losses'] %></p>
-    <%= 'hotstreak' if profile['hotStreak'] %>
+    <p><span><%= profile[0]['tier'] %> <%= profile[0]['rank'] %></span></p>
+    <p>Body: <%= profile[0]['leaguePoints'] %> bodů</p>
+    <p>Výhry: <%= profile[0]['wins'] %></p>
+    <p>Prohry: <%= profile[0]['losses'] %></p>
+    <%= 'hotstreak' if profile[0]['hotStreak'] %>
   </div>
 </div>
