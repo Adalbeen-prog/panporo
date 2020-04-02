@@ -43,7 +43,7 @@
         </div>
         <hr>
         <div class="row">
-          <% if ranked_stats.size >= 1 %>
+          <% if ranked_stats.size >= 1 && ranked_stats['RANKED_SOLO_5x5'] %>
           <div class="col-4 p-0 pl-2">
             <%= image_tag("/images/ranked-emblems/Emblem_#{ranked_stats['RANKED_SOLO_5x5']['tier'].to_s.capitalize}.png", class: "img-fluid float-left") %>
           </div>

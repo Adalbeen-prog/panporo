@@ -72,7 +72,9 @@ module SummonersHelper
 
   def ranked_stats(summoner_details)
     stats = {}
+    puts summoner_details
     summoner_details.each do |league|
+      puts league
       stats.merge!({league['queueType'] => league})
     end
     stats
