@@ -1,6 +1,5 @@
 <% match_details = get_live_match_info(@region, @profile[0]['summonerId']) %>
 
-<% debugger %>
 <% if !match_details['status'] %>
 
 <% team1, team2 = team_different(match_details['participants']) %>
