@@ -1,0 +1,10 @@
+<div class="container">
+  <% @champions.each do |champ| %>
+    <div class="champContainer">
+      <a href="<%= request.env['PATH_INFO'] %>/champions/<%= champ.id %>">
+      <%= image_tag("/images/champion/loading/#{champ.image.gsub('.png','_0.jpg')}", class: "img-fluid championImage") %>
+      </a>
+      <div class="champName"><span class="champText"><%= champ.name %> </span> </div>
+    </div>
+  <% end %>
+</div>

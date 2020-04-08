@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <%= image_tag("/images/champion/splash/#{@champion.image.gsub('.png','_0.jpg')}", class: "img-fluid") %>
+  </div>
+  <div class="championContent card mt-1 mb-5">
+    <div class="text-center"><%= @champion.name %></div>
+    <div class="text-center"><%= @champion.title %></div>
+    <div class="row">
+      <div class="col-6">
+        <% @champion.spells.each_with_index do |spell, index| %>
+          <div class="spell container">
+            <%= image_tag("/images/champion/spell/#{eval(spell)['image']['full']}", class: "img-small") %>
+            <p class="mb-0"><b><%= eval(spell)['name'] %></b></p> 
+            <p><%== eval(spell)['description'] %></p> 
+          </div>
+        <% end %>
+      </div>
+      <div class="col-6">
+        <div class="container">
+          <div class="mb-4">
+            Role: 
+            <p><%= JSON.parse(@champion.tags).join(', ') %></p>
+        </div>
+
+          Lore: 
+          <p><%= @champion.lore %></p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <div class="display-4">Skiny:</div>
+      <% @champion.skins.each do |skin| %>
+        <div class="skin">
+        <%= link_to "/images/champion/splash/#{@champion.name.gsub(' ', '')}_#{eval(skin)['num']}.jpg", data: { lightbox: 'roadtrip', title: 'Image Caption'}  do %>
+          <%= image_tag "/images/champion/loading/#{@champion.name.gsub(' ', '')}_#{eval(skin)['num']}.jpg" %>
+        <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

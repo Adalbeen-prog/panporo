@@ -144,3 +144,98 @@
 .rankedText{
   font-size: 11px;
 }
+
+.gameImages{
+  position: absolute;
+  top: 40%;
+  left: 0;
+  width: 100%;
+}
+
+.game-img{
+  width: 200px;
+  border-radius: 20%;
+  -webkit-transition: all 0.5s ease; /* Safari and Chrome */
+  -moz-transition: all 0.5s ease; /* Firefox */
+  -ms-transition: all 0.5s ease; /* IE 9 */
+  -o-transition: all 0.5s ease; /* Opera */
+  transition: all 0.5s ease;
+}
+
+.game-img:hover{
+  margin-top: 15px;
+}
+
+
+.championImage {
+  max-width: 100%;
+  -webkit-transition: all 0.5s ease; /* Safari and Chrome */
+  -moz-transition: all 0.5s ease; /* Firefox */
+  -ms-transition: all 0.5s ease; /* IE 9 */
+  -o-transition: all 0.5s ease; /* Opera */
+  transition: all 0.5s ease;
+  -webkit-transform:scale(1.25); /* Safari and Chrome */
+  -moz-transform:scale(1.25); /* Firefox */
+  -ms-transform:scale(1.25); /* IE 9 */
+  -o-transform:scale(1.25); /* Opera */
+   transform:scale(1.25);
+}
+
+.championImage:hover {
+  -webkit-transform:scale(1.0); /* Safari and Chrome */
+  -moz-transform:scale(1.0); /* Firefox */
+  -ms-transform:scale(1.0); /* IE 9 */
+  -o-transform:scale(1.0); /* Opera */
+   transform:scale(1.0);
+}
+
+.champContainer {
+  width: 200px;
+  height: 250px;
+  margin-bottom: 15px;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+
+
+.champName {
+  position: absolute;
+  font-weight: 600;
+  background-color: #061C25;
+  bottom: -20px;
+  left: 50%;
+  width: 100%;
+  height: 36px;
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.5s ease; /* Safari and Chrome */
+  -moz-transition: all 0.5s ease; /* Firefox */
+  -ms-transition: all 0.5s ease; /* IE 9 */
+  -o-transition: all 0.5s ease; /* Opera */
+  transition: all 0.5s ease;
+}
+
+.champContainer:hover .champName {
+  background-color: #062C70;
+}
+
+.champText{
+  -webkit-transition: all 0.5s ease; /* Safari and Chrome */
+  -moz-transition: all 0.5s ease; /* Firefox */
+  -ms-transition: all 0.5s ease; /* IE 9 */
+  -o-transition: all 0.5s ease; /* Opera */
+  transition: all 0.5s ease;
+}
+
+.champSplash{
+  height: 600px;
+}
+
+.skin {
+  margin-left: auto;
+  display: inline-block;
+  overflow: hidden;
+  height: 300px;
+}
