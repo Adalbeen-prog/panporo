@@ -84,6 +84,6 @@ test:
 #
 production:
   <<: *default
-  database: panporo_production
-  username: panporo
-  password: <%= ENV['PANPORO_DATABASE_PASSWORD'] %>
+  database: panporo
+  username: <%= ENV['APPNAME_DATABASE_USER'] %>
+  password: <%= ENV['APPNAME_DATABASE_PASSWORD'] %>
